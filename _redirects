@@ -1,0 +1,3 @@
+# Next-on-Netlify Redirects
+/  /.netlify/functions/next_index  200
+/_next/data/5_W1hyYkWpU0rusdJLFs-/.json  /.netlify/functions/next_index  200

@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "rwgQ");
+/******/ 	return __webpack_require__(__webpack_require__.s = "1WNa");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -429,8 +429,24 @@ var map = function (dict) {
   return dict.map;
 };
 
+var mapFlipped = function (dictFunctor) {
+  return function (fa) {
+    return function (f) {
+      return map(dictFunctor)(f)(fa);
+    };
+  };
+};
+
 var $$void = function (dictFunctor) {
   return map(dictFunctor)(Data_Function["const"](Data_Unit.unit));
+};
+
+var voidLeft = function (dictFunctor) {
+  return function (f) {
+    return function (x) {
+      return map(dictFunctor)(Data_Function["const"](x))(f);
+    };
+  };
 };
 
 var voidRight = function (dictFunctor) {
@@ -443,8 +459,10 @@ var functorArray = new Functor($foreign.arrayMap);
 module.exports = {
   Functor: Functor,
   map: map,
+  mapFlipped: mapFlipped,
   "void": $$void,
   voidRight: voidRight,
+  voidLeft: voidLeft,
   functorArray: functorArray
 };
 
@@ -677,6 +695,274 @@ exports.NodeType = type_1.default;
 
 /***/ }),
 
+/***/ "1WNa":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unstable_getStaticParams", function() { return unstable_getStaticParams; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStaticProps", function() { return getStaticProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStaticPaths", function() { return getStaticPaths; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return getServerSideProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unstable_getStaticProps", function() { return unstable_getStaticProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unstable_getStaticPaths", function() { return unstable_getStaticPaths; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unstable_getServerProps", function() { return unstable_getServerProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "config", function() { return config; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_app", function() { return _app; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderReqToHTML", function() { return renderReqToHTML; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony import */ var next_plugin_loader_middleware_on_init_server___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("GX0O");
+/* harmony import */ var next_plugin_loader_middleware_on_error_server___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("KqAr");
+/* harmony import */ var next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("fkL1");
+/* harmony import */ var next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_2__);
+
+    
+    
+    
+    const {isResSent} = __webpack_require__("g/15");
+
+    
+    const { processEnv } = __webpack_require__("4VNc")
+    processEnv([{"path":".env","contents":"API_ENDPOINT=https://jsonplaceholder.typicode.com\n"}])
+  
+    
+    const runtimeConfig = {}
+    const {parse: parseUrl, format: formatUrl} = __webpack_require__("bzos")
+    const {parse: parseQs} = __webpack_require__("8xkj")
+    const { renderToHTML } = __webpack_require__("/bjS");
+    const { tryGetPreviewData } = __webpack_require__("PCLx");
+    const {sendPayload} = __webpack_require__("KyNf");
+    const buildManifest = __webpack_require__("LZ9C");
+    const reactLoadableManifest = __webpack_require__("67Bq");
+    const Document = __webpack_require__("5w0S").default;
+    const Error = __webpack_require__("/a9y").default;
+    const App = __webpack_require__("1TCz").default;
+
+    
+    
+    const { rewrites } = __webpack_require__("Skye")
+    const { pathToRegexp, default: pathMatch } = __webpack_require__("N6Fi")
+  
+
+    const ComponentInfo = __webpack_require__("RNiq")
+
+    const Component = ComponentInfo.default
+    /* harmony default export */ __webpack_exports__["default"] = (Component);
+    const unstable_getStaticParams = ComponentInfo['unstable_getStaticParam' + 's']
+    const getStaticProps = ComponentInfo['getStaticProp' + 's']
+    const getStaticPaths = ComponentInfo['getStaticPath' + 's']
+    const getServerSideProps = ComponentInfo['getServerSideProp' + 's']
+
+    // kept for detecting legacy exports
+    const unstable_getStaticProps = ComponentInfo['unstable_getStaticProp' + 's']
+    const unstable_getStaticPaths = ComponentInfo['unstable_getStaticPath' + 's']
+    const unstable_getServerProps = ComponentInfo['unstable_getServerProp' + 's']
+
+    
+    
+    
+    
+    const getCustomRouteMatcher = pathMatch(true)
+    const prepareDestination = __webpack_require__("6mnf").default
+
+    function handleRewrites(parsedUrl) {
+      for (const rewrite of rewrites) {
+        const matcher = getCustomRouteMatcher(rewrite.source)
+        const params = matcher(parsedUrl.pathname)
+
+        if (params) {
+          const { parsedDestination } = prepareDestination(
+            rewrite.destination,
+            params,
+            parsedUrl.query,
+            true,
+            ""
+          )
+
+          Object.assign(parsedUrl.query, parsedDestination.query)
+          delete parsedDestination.query
+
+          Object.assign(parsedUrl, parsedDestination)
+
+          if (parsedUrl.pathname === '/'){
+            break
+          }
+          
+        }
+      }
+
+      return parsedUrl
+    }
+  
+
+    const config = ComponentInfo['confi' + 'g'] || {}
+    const _app = App
+    async function renderReqToHTML(req, res, renderMode, _renderOpts, _params) {
+      const fromExport = renderMode === 'export' || renderMode === true;
+
+      const options = {
+        App,
+        Document,
+        buildManifest,
+        getStaticProps,
+        getServerSideProps,
+        getStaticPaths,
+        reactLoadableManifest,
+        canonicalBase: "",
+        buildId: "L9fIeBsNbLMGoaU09binB",
+        assetPrefix: "",
+        runtimeConfig: runtimeConfig.publicRuntimeConfig || {},
+        previewProps: {previewModeId:"ade707a8dd8126590cc62b6f2909767e",previewModeSigningKey:"d731bd9d595d058760258bde60c57c80c0fa1e894e50e5ef9cba6a74de4f56fd",previewModeEncryptionKey:"bc4dab16582c71d00d89efab5bb7d3877fc9d034c0fb86f1e2f97bf6d9516feb"},
+        env: process.env,
+        basePath: "",
+        ..._renderOpts
+      }
+      let _nextData = false
+      let parsedUrl
+
+      try {
+        // We need to trust the dynamic route params from the proxy
+        // to ensure we are using the correct values
+        const trustQuery = !getStaticProps && req.headers['x-vercel-id']
+        const parsedUrl = handleRewrites(parseUrl(req.url, true))
+
+        
+
+        if (parsedUrl.pathname.match(/_next\/data/)) {
+          const {
+            default: getRouteFromAssetPath,
+          } = __webpack_require__("1Ej0");
+          _nextData = true;
+          parsedUrl.pathname = getRouteFromAssetPath(
+            parsedUrl.pathname.replace(
+              new RegExp('/_next/data/L9fIeBsNbLMGoaU09binB/'),
+              '/'
+            ),
+            '.json'
+          );
+        }
+
+        const renderOpts = Object.assign(
+          {
+            Component,
+            pageConfig: config,
+            nextExport: fromExport,
+            isDataReq: _nextData,
+          },
+          options,
+        )
+
+        
+
+        const params = {};
+        const nowParams = null;
+
+        // make sure to set renderOpts to the correct params e.g. _params
+        // if provided from worker or params if we're parsing them here
+        renderOpts.params = _params || params
+
+        // make sure to normalize req.url on Vercel to strip dynamic params
+        // from the query which are added during routing
+        
+
+        // normalize request URL/asPath for fallback pages since the proxy
+        // sets the request URL to the output's path for fallback pages
+        
+
+        const isFallback = parsedUrl.query.__nextFallback
+
+        const previewData = tryGetPreviewData(req, res, options.previewProps)
+        const isPreviewMode = previewData !== false
+
+        if (false) {}
+        let result = await renderToHTML(req, res, "/", Object.assign({}, getStaticProps ? { ...(parsedUrl.query.amp ? { amp: '1' } : {}) } : parsedUrl.query, nowParams ? nowParams : params, _params, isFallback ? { __nextFallback: 'true' } : {}), renderOpts)
+
+        if (!renderMode) {
+          if (_nextData || getStaticProps || getServerSideProps) {
+            sendPayload(req, res, _nextData ? JSON.stringify(renderOpts.pageData) : result, _nextData ? 'json' : 'html', true, {
+              private: isPreviewMode,
+              stateful: !!getServerSideProps,
+              revalidate: renderOpts.revalidate,
+            })
+            return null
+          }
+        } else if (isPreviewMode) {
+          res.setHeader(
+            'Cache-Control',
+            'private, no-cache, no-store, max-age=0, must-revalidate'
+          )
+        }
+
+        if (renderMode) return { html: result, renderOpts }
+        return result
+      } catch (err) {
+        if (!parsedUrl) {
+          parsedUrl = parseUrl(req.url, true)
+        }
+
+        if (err.code === 'ENOENT') {
+          res.statusCode = 404
+        } else if (err.code === 'DECODE_FAILED') {
+          // TODO: better error?
+          res.statusCode = 400
+        } else {
+          console.error('Unhandled error during request:', err)
+
+          // Backwards compat (call getInitialProps in custom error):
+          try {
+            await renderToHTML(req, res, "/_error", parsedUrl.query, Object.assign({}, options, {
+              getStaticProps: undefined,
+              getStaticPaths: undefined,
+              getServerSideProps: undefined,
+              Component: Error,
+              err: err,
+              // Short-circuit rendering:
+              isDataReq: true
+            }))
+          } catch (underErrorErr) {
+            console.error('Failed call /_error subroutine, continuing to crash function:', underErrorErr)
+          }
+
+          // Throw the error to crash the serverless function
+          if (isResSent(res)) {
+            console.error('!!! WARNING !!!')
+            console.error(
+              'Your function crashed, but closed the response before allowing the function to exit.\n' +
+              'This may cause unexpected behavior for the next request.'
+            )
+            console.error('!!! WARNING !!!')
+          }
+          throw err
+        }
+
+        const result = await renderToHTML(req, res, "/_error", parsedUrl.query, Object.assign({}, options, {
+          getStaticProps: undefined,
+          getStaticPaths: undefined,
+          getServerSideProps: undefined,
+          Component: Error,
+          err: res.statusCode === 404 ? undefined : err
+        }))
+        return result
+      }
+    }
+    async function render (req, res) {
+      try {
+        await Object(next_plugin_loader_middleware_on_init_server___WEBPACK_IMPORTED_MODULE_0__["default"])()
+        const html = await renderReqToHTML(req, res)
+        if (html) {
+          sendPayload(req, res, html, 'html', {generateEtags: true, poweredByHeader: true})
+        }
+      } catch(err) {
+        console.error(err)
+        await Object(next_plugin_loader_middleware_on_error_server___WEBPACK_IMPORTED_MODULE_1__["default"])(err)
+        // Throw the error to crash the serverless function
+        throw err
+      }
+    }
+  
+
+/***/ }),
+
 /***/ "1yX1":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -789,10 +1075,10 @@ var Foreign = __webpack_require__("jPfE");
 var toAff$prime = function (customCoerce) {
   return function (p) {
     return Effect_Aff.makeAff(function (cb) {
-      return Data_Functor.voidRight(Effect.functorEffect)(Data_Monoid.mempty(Effect_Aff.monoidCanceler))($foreign.thenImpl(p)(function ($46) {
-        return cb(Data_Either.Left.create(customCoerce($46)))();
-      })(function ($47) {
-        return cb(Data_Either.Right.create($47))();
+      return Data_Functor.voidRight(Effect.functorEffect)(Data_Monoid.mempty(Effect_Aff.monoidCanceler))($foreign.thenImpl(p)(function ($50) {
+        return cb(Data_Either.Left.create(customCoerce($50)))();
+      })(function ($51) {
+        return cb(Data_Either.Right.create($51))();
       }));
     });
   };
@@ -1432,65 +1718,51 @@ module.exports = {
 // Generated by purs version 0.13.8
 
 
-var Control_Applicative = __webpack_require__("Dpao");
-
 var Next_Link = __webpack_require__("6ost");
 
 var React_Basic_DOM = __webpack_require__("Kxr+");
 
 var React_Basic_DOM_Generated = __webpack_require__("hXvb");
 
-var React_Basic_Hooks = __webpack_require__("ZEOE");
-
-var React_Basic_Hooks_Internal = __webpack_require__("7p2L");
-
-var Type_Equality = __webpack_require__("U7a5");
-
-var mkNavigation = function () {
-  var render = React_Basic_DOM_Generated.nav()({
-    className: "text-gray-800 w-full flex items-center justify-between py-3 px-4",
-    children: [React_Basic_DOM_Generated.div()({
-      className: "font-extrabold text-xl",
-      children: [React_Basic_DOM.text("Next.js with Purescript Example")]
-    }), React_Basic_DOM_Generated.ul()({
-      className: "flex-grow flex justify-end items-center",
-      children: [React_Basic_DOM_Generated.li()({
-        children: [Next_Link.link()({
-          href: "/",
-          passHref: true,
-          children: React_Basic_DOM_Generated.a()({
-            className: "inline-block py-2 px-4 font-bold",
-            children: [React_Basic_DOM.text("Home")]
-          })
-        })]
-      }), React_Basic_DOM_Generated.li()({
-        children: [Next_Link.link()({
-          href: "/about",
-          passHref: true,
-          children: React_Basic_DOM_Generated.a()({
-            className: "inline-block py-2 px-4 font-bold",
-            children: [React_Basic_DOM.text("About")]
-          })
-        })]
-      }), React_Basic_DOM_Generated.li()({
-        children: [Next_Link.link()({
-          href: "/profile",
-          passHref: true,
-          children: React_Basic_DOM_Generated.a()({
-            className: "inline-block py-2 px-4 font-bold",
-            children: [React_Basic_DOM.text("Profile")]
-          })
-        })]
+var navigation = React_Basic_DOM_Generated.nav()({
+  className: "text-gray-800 w-full flex items-center justify-between py-3 px-4",
+  children: [React_Basic_DOM_Generated.div()({
+    className: "font-extrabold text-xl",
+    children: [React_Basic_DOM.text("Next.js with Purescript Example")]
+  }), React_Basic_DOM_Generated.ul()({
+    className: "flex-grow flex justify-end items-center",
+    children: [React_Basic_DOM_Generated.li()({
+      children: [Next_Link.link()({
+        href: "/",
+        passHref: true,
+        children: React_Basic_DOM_Generated.a()({
+          className: "inline-block py-2 px-4 font-bold",
+          children: [React_Basic_DOM.text("Home")]
+        })
+      })]
+    }), React_Basic_DOM_Generated.li()({
+      children: [Next_Link.link()({
+        href: "/about",
+        passHref: true,
+        children: React_Basic_DOM_Generated.a()({
+          className: "inline-block py-2 px-4 font-bold",
+          children: [React_Basic_DOM.text("About")]
+        })
+      })]
+    }), React_Basic_DOM_Generated.li()({
+      children: [Next_Link.link()({
+        href: "/profile",
+        passHref: true,
+        children: React_Basic_DOM_Generated.a()({
+          className: "inline-block py-2 px-4 font-bold",
+          children: [React_Basic_DOM.text("Profile")]
+        })
       })]
     })]
-  });
-  return React_Basic_Hooks.component("Navigation")(function (v) {
-    return Control_Applicative.pure(React_Basic_Hooks_Internal.applicativeRender(Type_Equality.refl))(render);
-  });
-}();
-
+  })]
+});
 module.exports = {
-  mkNavigation: mkNavigation
+  navigation: navigation
 };
 
 /***/ }),
@@ -1642,6 +1914,35 @@ function formatUrl(urlObj) {
   search = search.replace('#', '%23');
   return `${protocol}${host}${pathname}${search}${hash}`;
 }
+
+/***/ }),
+
+/***/ "6IMH":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Generated by purs version 0.13.8
+
+
+var Control_Category = __webpack_require__("yI2v");
+
+var Bifunctor = function (bimap) {
+  this.bimap = bimap;
+};
+
+var bimap = function (dict) {
+  return dict.bimap;
+};
+
+var rmap = function (dictBifunctor) {
+  return bimap(dictBifunctor)(Control_Category.identity(Control_Category.categoryFn));
+};
+
+module.exports = {
+  bimap: bimap,
+  Bifunctor: Bifunctor,
+  rmap: rmap
+};
 
 /***/ }),
 
@@ -2499,9 +2800,9 @@ var catchError = function (dict) {
 var $$try = function (dictMonadError) {
   return function (a) {
     return catchError(dictMonadError)(Data_Functor.map(dictMonadError.MonadThrow0().Monad0().Bind1().Apply0().Functor0())(Data_Either.Right.create)(a))(function () {
-      var $0 = Control_Applicative.pure(dictMonadError.MonadThrow0().Monad0().Applicative0());
-      return function ($1) {
-        return $0(Data_Either.Left.create($1));
+      var $4 = Control_Applicative.pure(dictMonadError.MonadThrow0().Monad0().Applicative0());
+      return function ($5) {
+        return $4(Data_Either.Left.create($5));
       };
     }());
   };
@@ -2599,9 +2900,15 @@ module.exports = {
 // Generated by purs version 0.13.8
 
 
+var Components_Loading = __webpack_require__("iOKe");
+
+var Components_Navigation = __webpack_require__("5nTH");
+
 var Context_Settings = __webpack_require__("o9Mx");
 
 var Control_Monad_Reader_Trans = __webpack_require__("yzgN");
+
+var Data_Unit = __webpack_require__("9rbA");
 
 var Next_Head = __webpack_require__("0GjE");
 
@@ -2613,6 +2920,7 @@ var React_Basic_DOM_Generated = __webpack_require__("hXvb");
 
 var mkApp = function (props) {
   var v = Context_Settings.mkSettingsProvider();
+  var loading = Components_Loading.mkLoading();
   var component = Control_Monad_Reader_Trans.runReaderT(props.Component)({
     settings: v.value0
   })();
@@ -2620,7 +2928,7 @@ var mkApp = function (props) {
     children: [React_Basic_DOM_Generated.title()({
       children: [React_Basic_DOM.text("Next.js with Purescript Example")]
     })]
-  }), component(props.pageProps)]));
+  }), loading(Data_Unit.unit), Components_Navigation.navigation, component(props.pageProps)]));
 };
 
 module.exports = {
@@ -2646,6 +2954,16 @@ module.exports = {
 
 var $foreign = __webpack_require__("JEnG");
 
+var Data_Monoid = __webpack_require__("ru3E");
+
+var Data_Semigroup = __webpack_require__("0p0S");
+
+var semigroupJSX = new Data_Semigroup.Semigroup(function (a) {
+  return function (b) {
+    return $foreign.fragment([a, b]);
+  };
+});
+
 var provider = function (context) {
   return function (value) {
     return function (children) {
@@ -2657,8 +2975,14 @@ var provider = function (context) {
   };
 };
 
+var monoidJSX = new Data_Monoid.Monoid(function ($dollar__unused) {
+  return semigroupJSX;
+}, $foreign.empty);
 module.exports = {
   provider: provider,
+  semigroupJSX: semigroupJSX,
+  monoidJSX: monoidJSX,
+  empty: $foreign.empty,
   fragment: $foreign.fragment,
   element: $foreign.element,
   createContext: $foreign.createContext,
@@ -2866,9 +3190,9 @@ var traverse_ = function (dictApplicative) {
   return function (dictFoldable) {
     return function (f) {
       return foldr(dictFoldable)(function () {
-        var $56 = Control_Apply.applySecond(dictApplicative.Apply0());
-        return function ($57) {
-          return $56(f($57));
+        var $60 = Control_Apply.applySecond(dictApplicative.Apply0());
+        return function ($61) {
+          return $60(f($61));
         };
       }())(Control_Applicative.pure(dictApplicative)(Data_Unit.unit));
     };
@@ -4138,6 +4462,8 @@ exports.nodeFetch = __webpack_require__("lrmY").default;
 // Generated by purs version 0.13.8
 
 
+var Data_Bifunctor = __webpack_require__("6IMH");
+
 var Tuple = function () {
   function Tuple(value0, value1) {
     this.value0 = value0;
@@ -4155,8 +4481,16 @@ var Tuple = function () {
   return Tuple;
 }();
 
+var bifunctorTuple = new Data_Bifunctor.Bifunctor(function (f) {
+  return function (g) {
+    return function (v) {
+      return new Tuple(f(v.value0), g(v.value1));
+    };
+  };
+});
 module.exports = {
-  Tuple: Tuple
+  Tuple: Tuple,
+  bifunctorTuple: bifunctorTuple
 };
 
 /***/ }),
@@ -4221,6 +4555,7 @@ const React = __webpack_require__("zV16");
 
 const createElement = React.createElement;
 const Fragment = React.Fragment;
+exports.empty = null;
 
 exports.element = component => props => Array.isArray(props.children) ? createElement.apply(null, [component, props].concat(props.children)) : createElement(component, props);
 
@@ -4553,7 +4888,7 @@ exports.__esModule=true;exports.sendPayload=sendPayload;var _utils=__webpack_req
 /***/ "LZ9C":
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"polyfillFiles\":[\"static/chunks/polyfills-fa276ba060a4a8ac7eef.js\"],\"devFiles\":[],\"ampDevFiles\":[],\"lowPriorityFiles\":[\"static/ZjFx1zclD549zMOce7LI8/_buildManifest.js\",\"static/ZjFx1zclD549zMOce7LI8/_ssgManifest.js\"],\"pages\":{\"/\":[\"static/chunks/main-57e33d3ce8dc55b1ad1c.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.3ee2ebdfbad55a3bb6f0.js\",\"static/chunks/commons.bc1d582086ab2e1186d0.js\",\"static/chunks/d1cff29583c50e2469e701d9b2e0c9acb072538d.b5566c08272550e23934.js\",\"static/chunks/pages/index-ac3c55bb93ca02673386.js\"],\"/404\":[\"static/chunks/main-57e33d3ce8dc55b1ad1c.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.3ee2ebdfbad55a3bb6f0.js\",\"static/chunks/commons.bc1d582086ab2e1186d0.js\",\"static/chunks/d1cff29583c50e2469e701d9b2e0c9acb072538d.b5566c08272550e23934.js\",\"static/chunks/pages/404-1994e6479f98e36bc2c2.js\"],\"/_app\":[\"static/chunks/main-57e33d3ce8dc55b1ad1c.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.3ee2ebdfbad55a3bb6f0.js\",\"static/chunks/commons.bc1d582086ab2e1186d0.js\",\"static/chunks/d1cff29583c50e2469e701d9b2e0c9acb072538d.b5566c08272550e23934.js\",\"static/css/15314c5be53886cee4ec.css\",\"static/chunks/pages/_app-a78c31399354e935133e.js\"],\"/_error\":[\"static/chunks/main-57e33d3ce8dc55b1ad1c.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.3ee2ebdfbad55a3bb6f0.js\",\"static/chunks/commons.bc1d582086ab2e1186d0.js\",\"static/chunks/pages/_error-4720ff3022440b7749a2.js\"],\"/about\":[\"static/chunks/main-57e33d3ce8dc55b1ad1c.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.3ee2ebdfbad55a3bb6f0.js\",\"static/chunks/commons.bc1d582086ab2e1186d0.js\",\"static/chunks/d1cff29583c50e2469e701d9b2e0c9acb072538d.b5566c08272550e23934.js\",\"static/chunks/pages/about-d40d83c55c83a8d20e90.js\"],\"/profile\":[\"static/chunks/main-57e33d3ce8dc55b1ad1c.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.3ee2ebdfbad55a3bb6f0.js\",\"static/chunks/commons.bc1d582086ab2e1186d0.js\",\"static/chunks/d1cff29583c50e2469e701d9b2e0c9acb072538d.b5566c08272550e23934.js\",\"static/chunks/pages/profile-3580574e476cdfc8823b.js\"]},\"ampFirstPages\":[]}");
+module.exports = JSON.parse("{\"polyfillFiles\":[\"static/chunks/polyfills-fa276ba060a4a8ac7eef.js\"],\"devFiles\":[],\"ampDevFiles\":[],\"lowPriorityFiles\":[\"static/L9fIeBsNbLMGoaU09binB/_buildManifest.js\",\"static/L9fIeBsNbLMGoaU09binB/_ssgManifest.js\"],\"pages\":{\"/\":[\"static/chunks/main-cb2ee9b639765119ca82.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.bf71924f96c1c3774846.js\",\"static/chunks/d1cff29583c50e2469e701d9b2e0c9acb072538d.2c47f170d69432bc62b9.js\",\"static/chunks/pages/index-e353d2ac0b1c98042a02.js\"],\"/404\":[\"static/chunks/main-cb2ee9b639765119ca82.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.bf71924f96c1c3774846.js\",\"static/chunks/d1cff29583c50e2469e701d9b2e0c9acb072538d.2c47f170d69432bc62b9.js\",\"static/chunks/pages/404-978ad6fb94e7cc5a2783.js\"],\"/_app\":[\"static/chunks/main-cb2ee9b639765119ca82.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.bf71924f96c1c3774846.js\",\"static/chunks/d1cff29583c50e2469e701d9b2e0c9acb072538d.2c47f170d69432bc62b9.js\",\"static/chunks/f6078781a05fe1bcb0902d23dbbb2662c8d200b3.cbd557c5810bfc3d4fc4.js\",\"static/css/a5b2ac8d617e895ce312.css\",\"static/chunks/pages/_app-3f66c7307d56884561c8.js\"],\"/_error\":[\"static/chunks/main-cb2ee9b639765119ca82.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.bf71924f96c1c3774846.js\",\"static/chunks/pages/_error-39bf8789a90c6cb4a88c.js\"],\"/about\":[\"static/chunks/main-cb2ee9b639765119ca82.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.bf71924f96c1c3774846.js\",\"static/chunks/d1cff29583c50e2469e701d9b2e0c9acb072538d.2c47f170d69432bc62b9.js\",\"static/chunks/pages/about-aece0fa4281f72a8e1f1.js\"],\"/profile\":[\"static/chunks/main-cb2ee9b639765119ca82.js\",\"static/chunks/webpack-e067438c4cf4ef2ef178.js\",\"static/chunks/framework.bf71924f96c1c3774846.js\",\"static/chunks/d1cff29583c50e2469e701d9b2e0c9acb072538d.2c47f170d69432bc62b9.js\",\"static/chunks/pages/profile-b02c5c5673f572b59b51.js\"]},\"ampFirstPages\":[]}");
 
 /***/ }),
 
@@ -4845,6 +5180,59 @@ function decodeParam(param) {
 
 /***/ }),
 
+/***/ "NN70":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Generated by purs version 0.13.8
+
+
+var $foreign = __webpack_require__("RUnn");
+
+var Data_Functor = __webpack_require__("0cS1");
+
+var Effect = __webpack_require__("vwlR");
+
+var Effect_Uncurried = __webpack_require__("BnGj");
+
+var event = function (name) {
+  return function (cb) {
+    return Data_Functor.voidLeft(Effect.functorEffect)($foreign["_on"](name)(cb))($foreign["_off"](name)(cb));
+  };
+};
+
+var onRouteChangeStart = function () {
+  var $145 = event("routeChangeStart");
+  return function ($146) {
+    return $145(Effect_Uncurried.mkEffectFn1($146));
+  };
+}();
+
+var routeChangeComplete = function () {
+  var $147 = event("routeChangeComplete");
+  return function ($148) {
+    return $147(Effect_Uncurried.mkEffectFn1($148));
+  };
+}();
+
+var routeChangeError = function () {
+  var $149 = event("routeChangeError");
+  return function ($150) {
+    return $149(Effect_Uncurried.mkEffectFn1($150));
+  };
+}();
+
+module.exports = {
+  event: event,
+  onRouteChangeStart: onRouteChangeStart,
+  routeChangeComplete: routeChangeComplete,
+  routeChangeError: routeChangeError,
+  "_on": $foreign["_on"],
+  "_off": $foreign["_off"]
+};
+
+/***/ }),
+
 /***/ "NkYg":
 /***/ (function(module, exports) {
 
@@ -5076,9 +5464,9 @@ var Data_List_Types = __webpack_require__("mKfh");
 var Data_NonEmpty = __webpack_require__("KM2U");
 
 var singleton = function () {
-  var $64 = Data_NonEmpty.singleton(Data_List_Types.plusList);
-  return function ($65) {
-    return Data_List_Types.NonEmptyList($64($65));
+  var $68 = Data_NonEmpty.singleton(Data_List_Types.plusList);
+  return function ($69) {
+    return Data_List_Types.NonEmptyList($68($69));
   };
 }();
 
@@ -5100,6 +5488,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (_build_Pages_Home_index_js__WEBPACK_IMPORTED_MODULE_0__["mkHome"]);
+
+/***/ }),
+
+/***/ "RUnn":
+/***/ (function(module, exports, __webpack_require__) {
+
+var router = __webpack_require__("nOHt").default;
+
+exports._on = function (event) {
+  return function (cb) {
+    return function () {
+      router.events.on(event, cb);
+    };
+  };
+};
+
+exports._off = function (event) {
+  return function (cb) {
+    return function () {
+      router.events.off(event, cb);
+    };
+  };
+};
 
 /***/ }),
 
@@ -5345,9 +5756,9 @@ var monadErrorAff = new Control_Monad_Error_Class.MonadError(function ($dollar__
 var runAff = function (k) {
   return function (aff) {
     return launchAff(Control_Bind.bindFlipped(bindAff)(function () {
-      var $125 = Effect_Class.liftEffect(monadEffectAff);
-      return function ($126) {
-        return $125(k($126));
+      var $136 = Effect_Class.liftEffect(monadEffectAff);
+      return function ($137) {
+        return $136(k($137));
       };
     }())(Control_Monad_Error_Class["try"](monadErrorAff)(aff)));
   };
@@ -5367,10 +5778,10 @@ var parallelAff = new Control_Parallel_Class.Parallel(function ($dollar__unused)
 var applicativeParAff = new Control_Applicative.Applicative(function ($dollar__unused) {
   return applyParAff;
 }, function () {
-  var $127 = Control_Parallel_Class.parallel(parallelAff);
-  var $128 = Control_Applicative.pure(applicativeAff);
-  return function ($129) {
-    return $127($128($129));
+  var $138 = Control_Parallel_Class.parallel(parallelAff);
+  var $139 = Control_Applicative.pure(applicativeAff);
+  return function ($140) {
+    return $138($139($140));
   };
 }());
 var semigroupCanceler = new Data_Semigroup.Semigroup(function (v) {
@@ -6472,15 +6883,15 @@ var Data_Foldable = __webpack_require__("GJj7");
 var parTraverse_ = function (dictParallel) {
   return function (dictFoldable) {
     return function (f) {
-      var $41 = Control_Parallel_Class.sequential(dictParallel);
-      var $42 = Data_Foldable.traverse_(dictParallel.Applicative1())(dictFoldable)(function () {
-        var $44 = Control_Parallel_Class.parallel(dictParallel);
-        return function ($45) {
-          return $44(f($45));
+      var $45 = Control_Parallel_Class.sequential(dictParallel);
+      var $46 = Data_Foldable.traverse_(dictParallel.Applicative1())(dictFoldable)(function () {
+        var $48 = Control_Parallel_Class.parallel(dictParallel);
+        return function ($49) {
+          return $48(f($49));
         };
       }());
-      return function ($43) {
-        return $41($42($43));
+      return function ($47) {
+        return $45($46($47));
       };
     };
   };
@@ -6579,11 +6990,13 @@ exports._head = document.Head;
 exports._main = document.Main;
 exports._nextScript = document.NextScript;
 
-exports._unsafeDocument = function (component) {
-  component.headTagsMiddleware = document.default.headTagsMiddleware;
-  component.getInitialProps = document.default.getInitialProps;
-  component.renderDocument = document.default.renderDocument;
-  return component;
+exports.unsafeDocument = function (component) {
+  return function () {
+    component.headTagsMiddleware = document.default.headTagsMiddleware;
+    component.getInitialProps = document.default.getInitialProps;
+    component.renderDocument = document.default.renderDocument;
+    return component;
+  };
 };
 
 /***/ }),
@@ -7120,15 +7533,47 @@ module.exports = function(module) {
 
 var $foreign = __webpack_require__("mO9F");
 
+var Data_Bifunctor = __webpack_require__("6IMH");
+
 var Data_Eq = __webpack_require__("V8Ld");
 
+var Data_Function = __webpack_require__("WYav");
+
 var Data_Function_Uncurried = __webpack_require__("BwkI");
+
+var Data_Functor = __webpack_require__("0cS1");
+
+var Data_Tuple = __webpack_require__("HOhb");
+
+var Data_Unit = __webpack_require__("9rbA");
 
 var React_Basic = __webpack_require__("ChJ6");
 
 var React_Basic_Hooks_Internal = __webpack_require__("7p2L");
 
 var Unsafe_Coerce = __webpack_require__("HTct");
+
+var useState = function (initialState) {
+  return React_Basic_Hooks_Internal.unsafeHook(function () {
+    return $foreign.useState_(Data_Function_Uncurried.mkFn2(Data_Tuple.Tuple.create), initialState);
+  });
+};
+
+var useState$prime = function (initialState) {
+  return Data_Functor.mapFlipped(React_Basic_Hooks_Internal.functorRender)(useState(initialState))(Data_Bifunctor.rmap(Data_Tuple.bifunctorTuple)(function (v) {
+    return function ($156) {
+      return v(Data_Function["const"]($156));
+    };
+  }));
+};
+
+var useEffectOnce = function (effect) {
+  return React_Basic_Hooks_Internal.unsafeHook(function () {
+    return $foreign.useEffect_(function (v, v1) {
+      return true;
+    }, Data_Unit.unit, effect);
+  });
+};
 
 var useEffect = function (dictEq) {
   return function (deps) {
@@ -7175,18 +7620,18 @@ var reactComponent = function (dictLacks) {
 var component = function (name) {
   return function (renderFn) {
     return function __do() {
-      var c = reactComponent()()()(name)(function ($139) {
+      var c = reactComponent()()()(name)(function ($157) {
         return renderFn(function (v) {
           return v.nested;
-        }($139));
+        }($157));
       })();
-      var $140 = React_Basic.element(c);
-      return function ($141) {
-        return $140(function (v) {
+      var $158 = React_Basic.element(c);
+      return function ($159) {
+        return $158(function (v) {
           return {
             nested: v
           };
-        }($141));
+        }($159));
       };
     };
   };
@@ -7195,7 +7640,10 @@ var component = function (name) {
 module.exports = {
   component: component,
   reactComponent: reactComponent,
+  useState: useState,
+  "useState'": useState$prime,
   useEffect: useEffect,
+  useEffectOnce: useEffectOnce,
   useContext: useContext
 };
 
@@ -7805,6 +8253,76 @@ exports.log = function (s) {
     console.log(s);
     return {};
   };
+};
+
+/***/ }),
+
+/***/ "d92K":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Generated by purs version 0.13.8
+
+
+var Effect_Unsafe = __webpack_require__("7Raw");
+
+var React_Basic = __webpack_require__("ChJ6");
+
+var React_Basic_DOM_Internal = __webpack_require__("RnDS");
+
+var _title$prime = Effect_Unsafe.unsafePerformEffect(React_Basic_DOM_Internal.unsafeCreateDOMComponent("title"));
+
+var title$prime = function (dictUnion) {
+  return _title$prime;
+};
+
+var title = function (dictUnion) {
+  return React_Basic.element(title$prime());
+};
+
+var _svg$prime = Effect_Unsafe.unsafePerformEffect(React_Basic_DOM_Internal.unsafeCreateDOMComponent("svg"));
+
+var svg$prime = function (dictUnion) {
+  return _svg$prime;
+};
+
+var svg = function (dictUnion) {
+  return React_Basic.element(svg$prime());
+};
+
+var _path$prime = Effect_Unsafe.unsafePerformEffect(React_Basic_DOM_Internal.unsafeCreateDOMComponent("path"));
+
+var path$prime = function (dictUnion) {
+  return _path$prime;
+};
+
+var path = function (dictUnion) {
+  return React_Basic.element(path$prime());
+};
+
+var _circle$prime = Effect_Unsafe.unsafePerformEffect(React_Basic_DOM_Internal.unsafeCreateDOMComponent("circle"));
+
+var circle$prime = function (dictUnion) {
+  return _circle$prime;
+};
+
+var circle = function (dictUnion) {
+  return React_Basic.element(circle$prime());
+};
+
+module.exports = {
+  circle: circle,
+  "circle'": circle$prime,
+  "_circle'": _circle$prime,
+  path: path,
+  "path'": path$prime,
+  "_path'": _path$prime,
+  svg: svg,
+  "svg'": svg$prime,
+  "_svg'": _svg$prime,
+  title: title,
+  "title'": title$prime,
+  "_title'": _title$prime
 };
 
 /***/ }),
@@ -9858,9 +10376,9 @@ var bindExceptT = function (dictMonad) {
   }, function (v) {
     return function (k) {
       return Control_Bind.bind(dictMonad.Bind1())(v)(Data_Either.either(function () {
-        var $18 = Control_Applicative.pure(dictMonad.Applicative0());
-        return function ($19) {
-          return $18(Data_Either.Left.create($19));
+        var $22 = Control_Applicative.pure(dictMonad.Applicative0());
+        return function ($23) {
+          return $22(Data_Either.Left.create($23));
         };
       }())(function (a) {
         var v1 = k(a);
@@ -9880,9 +10398,9 @@ var applicativeExceptT = function (dictMonad) {
   return new Control_Applicative.Applicative(function ($dollar__unused) {
     return applyExceptT(dictMonad);
   }, function () {
-    var $20 = Control_Applicative.pure(dictMonad.Applicative0());
-    return function ($21) {
-      return ExceptT($20(Data_Either.Right.create($21)));
+    var $24 = Control_Applicative.pure(dictMonad.Applicative0());
+    return function ($25) {
+      return ExceptT($24(Data_Either.Right.create($25)));
     };
   }());
 };
@@ -9891,9 +10409,9 @@ var monadThrowExceptT = function (dictMonad) {
   return new Control_Monad_Error_Class.MonadThrow(function ($dollar__unused) {
     return monadExceptT(dictMonad);
   }, function () {
-    var $22 = Control_Applicative.pure(dictMonad.Applicative0());
-    return function ($23) {
-      return ExceptT($22(Data_Either.Left.create($23)));
+    var $26 = Control_Applicative.pure(dictMonad.Applicative0());
+    return function ($27) {
+      return ExceptT($26(Data_Either.Left.create($27)));
     };
   }());
 };
@@ -10171,6 +10689,81 @@ module.exports = {
 
 /***/ }),
 
+/***/ "iOKe":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Generated by purs version 0.13.8
+
+
+var Control_Applicative = __webpack_require__("Dpao");
+
+var Data_Monoid = __webpack_require__("ru3E");
+
+var Next_Router = __webpack_require__("NN70");
+
+var React_Basic = __webpack_require__("ChJ6");
+
+var React_Basic_DOM_Generated = __webpack_require__("hXvb");
+
+var React_Basic_DOM_SVG = __webpack_require__("d92K");
+
+var React_Basic_Hooks = __webpack_require__("ZEOE");
+
+var React_Basic_Hooks_Internal = __webpack_require__("7p2L");
+
+var Type_Equality = __webpack_require__("U7a5");
+
+var mkLoading = React_Basic_Hooks.component("Loading")(function (v) {
+  return React_Basic_Hooks_Internal.bind(React_Basic_Hooks_Internal.ixBindRender)(React_Basic_Hooks["useState'"](false))(function (v1) {
+    return React_Basic_Hooks_Internal.discard(React_Basic_Hooks_Internal.ixBindRender)(React_Basic_Hooks.useEffectOnce(Next_Router.onRouteChangeStart(function (v2) {
+      return v1.value1(true);
+    })))(function ($dollar__unused) {
+      return React_Basic_Hooks_Internal.discard(React_Basic_Hooks_Internal.ixBindRender)(React_Basic_Hooks.useEffectOnce(Next_Router.routeChangeComplete(function (v2) {
+        return v1.value1(false);
+      })))(function ($dollar__unused) {
+        return React_Basic_Hooks_Internal.discard(React_Basic_Hooks_Internal.ixBindRender)(React_Basic_Hooks.useEffectOnce(Next_Router.routeChangeError(function (v2) {
+          return v1.value1(false);
+        })))(function ($dollar__unused) {
+          return Control_Applicative.pure(React_Basic_Hooks_Internal.applicativeRender(Type_Equality.refl))(React_Basic_DOM_Generated.div()({
+            className: "fixed top-0 left-0 right-0 pointer-events-none transition-opacity delay-500" + function () {
+              if (v1.value0) {
+                return " opacity-1";
+              }
+
+              ;
+              return " opacity-0";
+            }(),
+            children: [Data_Monoid.guard(React_Basic.monoidJSX)(v1.value0)(React_Basic_DOM_SVG.svg()({
+              className: "animate-spin mt-1 mx-auto h-5 w-5 text-teal-500",
+              xmlns: "http://www.w3.org/2000/svg",
+              fill: "none",
+              viewBox: "0 0 24 24",
+              children: [React_Basic_DOM_SVG.circle()({
+                className: "opacity-25",
+                cx: "12",
+                cy: "12",
+                r: "10",
+                stroke: "currentColor",
+                strokeWidth: "4"
+              }), React_Basic_DOM_SVG.path()({
+                className: "opacity-75",
+                fill: "currentColor",
+                d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              })]
+            }))]
+          }));
+        });
+      });
+    });
+  });
+});
+module.exports = {
+  mkLoading: mkLoading
+};
+
+/***/ }),
+
 /***/ "iv9w":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10271,9 +10864,9 @@ var TypeMismatch = function () {
 }();
 
 var fail = function () {
-  var $132 = Control_Monad_Error_Class.throwError(Control_Monad_Except_Trans.monadThrowExceptT(Data_Identity.monadIdentity));
-  return function ($133) {
-    return $132(Data_List_NonEmpty.singleton($133));
+  var $143 = Control_Monad_Error_Class.throwError(Control_Monad_Except_Trans.monadThrowExceptT(Data_Identity.monadIdentity));
+  return function ($144) {
+    return $143(Data_List_NonEmpty.singleton($144));
   };
 }();
 
@@ -12540,9 +13133,9 @@ var functorList = new Data_Functor.Functor(listMap);
 var foldableList = new Data_Foldable.Foldable(function (dictMonoid) {
   return function (f) {
     return Data_Foldable.foldl(foldableList)(function (acc) {
-      var $101 = Data_Semigroup.append(dictMonoid.Semigroup0())(acc);
-      return function ($102) {
-        return $101(f($102));
+      var $105 = Data_Semigroup.append(dictMonoid.Semigroup0())(acc);
+      return function ($106) {
+        return $105(f($106));
       };
     })(Data_Monoid.mempty(dictMonoid));
   };
@@ -12586,9 +13179,9 @@ var foldableList = new Data_Foldable.Foldable(function (dictMonoid) {
 }, function (f) {
   return function (b) {
     var rev = Data_Foldable.foldl(foldableList)(Data_Function.flip(Cons.create))(Nil.value);
-    var $103 = Data_Foldable.foldl(foldableList)(Data_Function.flip(f))(b);
-    return function ($104) {
-      return $103(rev($104));
+    var $107 = Data_Foldable.foldl(foldableList)(Data_Function.flip(f))(b);
+    return function ($108) {
+      return $107(rev($108));
     };
   };
 });
@@ -12639,6 +13232,18 @@ const useEqCache = (eq, a) => {
   }
 
   return memoRef.current;
+};
+
+exports.useState_ = (tuple, initialState) => {
+  const r = React.useState(initialState);
+  const state = r[0];
+  const setState = r[1];
+
+  if (!setState.hasOwnProperty("$$reactBasicHooks$$cachedSetState")) {
+    setState.$$reactBasicHooks$$cachedSetState = update => () => setState(update);
+  }
+
+  return tuple(state, setState.$$reactBasicHooks$$cachedSetState);
 };
 
 exports.useEffect_ = (eq, deps, effect) => {
@@ -13051,9 +13656,9 @@ var Data_Identity = __webpack_require__("N+CZ");
 var Data_Newtype = __webpack_require__("c2lC");
 
 var runExcept = function () {
-  var $2 = Data_Newtype.unwrap(Data_Identity.newtypeIdentity);
-  return function ($3) {
-    return $2(Control_Monad_Except_Trans.runExceptT($3));
+  var $6 = Data_Newtype.unwrap(Data_Identity.newtypeIdentity);
+  return function ($7) {
+    return $6(Control_Monad_Except_Trans.runExceptT($7));
   };
 }();
 
@@ -13112,279 +13717,31 @@ var mempty = function (dict) {
   return dict.mempty;
 };
 
+var guard = function (dictMonoid) {
+  return function (v) {
+    return function (v1) {
+      if (v) {
+        return v1;
+      }
+
+      ;
+
+      if (!v) {
+        return mempty(dictMonoid);
+      }
+
+      ;
+      throw new Error("Failed pattern match at Data.Monoid (line 73, column 1 - line 73, column 49): " + [v.constructor.name, v1.constructor.name]);
+    };
+  };
+};
+
 module.exports = {
   Monoid: Monoid,
   mempty: mempty,
+  guard: guard,
   monoidUnit: monoidUnit
 };
-
-/***/ }),
-
-/***/ "rwgQ":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unstable_getStaticParams", function() { return unstable_getStaticParams; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStaticProps", function() { return getStaticProps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStaticPaths", function() { return getStaticPaths; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return getServerSideProps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unstable_getStaticProps", function() { return unstable_getStaticProps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unstable_getStaticPaths", function() { return unstable_getStaticPaths; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unstable_getServerProps", function() { return unstable_getServerProps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "config", function() { return config; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_app", function() { return _app; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderReqToHTML", function() { return renderReqToHTML; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony import */ var next_plugin_loader_middleware_on_init_server___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("GX0O");
-/* harmony import */ var next_plugin_loader_middleware_on_error_server___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("KqAr");
-/* harmony import */ var next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("fkL1");
-/* harmony import */ var next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_2__);
-
-    
-    
-    
-    const {isResSent} = __webpack_require__("g/15");
-
-    
-    const { processEnv } = __webpack_require__("4VNc")
-    processEnv([{"path":".env","contents":"API_ENDPOINT=https://jsonplaceholder.typicode.com\n"}])
-  
-    
-    const runtimeConfig = {}
-    const {parse: parseUrl, format: formatUrl} = __webpack_require__("bzos")
-    const {parse: parseQs} = __webpack_require__("8xkj")
-    const { renderToHTML } = __webpack_require__("/bjS");
-    const { tryGetPreviewData } = __webpack_require__("PCLx");
-    const {sendPayload} = __webpack_require__("KyNf");
-    const buildManifest = __webpack_require__("LZ9C");
-    const reactLoadableManifest = __webpack_require__("67Bq");
-    const Document = __webpack_require__("5w0S").default;
-    const Error = __webpack_require__("/a9y").default;
-    const App = __webpack_require__("1TCz").default;
-
-    
-    
-    const { rewrites } = __webpack_require__("Skye")
-    const { pathToRegexp, default: pathMatch } = __webpack_require__("N6Fi")
-  
-
-    const ComponentInfo = __webpack_require__("RNiq")
-
-    const Component = ComponentInfo.default
-    /* harmony default export */ __webpack_exports__["default"] = (Component);
-    const unstable_getStaticParams = ComponentInfo['unstable_getStaticParam' + 's']
-    const getStaticProps = ComponentInfo['getStaticProp' + 's']
-    const getStaticPaths = ComponentInfo['getStaticPath' + 's']
-    const getServerSideProps = ComponentInfo['getServerSideProp' + 's']
-
-    // kept for detecting legacy exports
-    const unstable_getStaticProps = ComponentInfo['unstable_getStaticProp' + 's']
-    const unstable_getStaticPaths = ComponentInfo['unstable_getStaticPath' + 's']
-    const unstable_getServerProps = ComponentInfo['unstable_getServerProp' + 's']
-
-    
-    
-    
-    
-    const getCustomRouteMatcher = pathMatch(true)
-    const prepareDestination = __webpack_require__("6mnf").default
-
-    function handleRewrites(parsedUrl) {
-      for (const rewrite of rewrites) {
-        const matcher = getCustomRouteMatcher(rewrite.source)
-        const params = matcher(parsedUrl.pathname)
-
-        if (params) {
-          const { parsedDestination } = prepareDestination(
-            rewrite.destination,
-            params,
-            parsedUrl.query,
-            true,
-            ""
-          )
-
-          Object.assign(parsedUrl.query, parsedDestination.query)
-          delete parsedDestination.query
-
-          Object.assign(parsedUrl, parsedDestination)
-
-          if (parsedUrl.pathname === '/'){
-            break
-          }
-          
-        }
-      }
-
-      return parsedUrl
-    }
-  
-
-    const config = ComponentInfo['confi' + 'g'] || {}
-    const _app = App
-    async function renderReqToHTML(req, res, renderMode, _renderOpts, _params) {
-      const fromExport = renderMode === 'export' || renderMode === true;
-
-      const options = {
-        App,
-        Document,
-        buildManifest,
-        getStaticProps,
-        getServerSideProps,
-        getStaticPaths,
-        reactLoadableManifest,
-        canonicalBase: "",
-        buildId: "ZjFx1zclD549zMOce7LI8",
-        assetPrefix: "",
-        runtimeConfig: runtimeConfig.publicRuntimeConfig || {},
-        previewProps: {previewModeId:"2a58e828a4560d80084256ed9cdf580d",previewModeSigningKey:"a66d04fb04ff9f285a9b66ed13464d678460b70fd5bbf155643cb6425b153a3a",previewModeEncryptionKey:"342aad37d4957a52a0d4496111ffa0369e98bfae180d5b231b6a6658084f664e"},
-        env: process.env,
-        basePath: "",
-        ..._renderOpts
-      }
-      let _nextData = false
-      let parsedUrl
-
-      try {
-        // We need to trust the dynamic route params from the proxy
-        // to ensure we are using the correct values
-        const trustQuery = !getStaticProps && req.headers['x-vercel-id']
-        const parsedUrl = handleRewrites(parseUrl(req.url, true))
-
-        
-
-        if (parsedUrl.pathname.match(/_next\/data/)) {
-          const {
-            default: getRouteFromAssetPath,
-          } = __webpack_require__("1Ej0");
-          _nextData = true;
-          parsedUrl.pathname = getRouteFromAssetPath(
-            parsedUrl.pathname.replace(
-              new RegExp('/_next/data/ZjFx1zclD549zMOce7LI8/'),
-              '/'
-            ),
-            '.json'
-          );
-        }
-
-        const renderOpts = Object.assign(
-          {
-            Component,
-            pageConfig: config,
-            nextExport: fromExport,
-            isDataReq: _nextData,
-          },
-          options,
-        )
-
-        
-
-        const params = {};
-        const nowParams = null;
-
-        // make sure to set renderOpts to the correct params e.g. _params
-        // if provided from worker or params if we're parsing them here
-        renderOpts.params = _params || params
-
-        // make sure to normalize req.url on Vercel to strip dynamic params
-        // from the query which are added during routing
-        
-
-        // normalize request URL/asPath for fallback pages since the proxy
-        // sets the request URL to the output's path for fallback pages
-        
-
-        const isFallback = parsedUrl.query.__nextFallback
-
-        const previewData = tryGetPreviewData(req, res, options.previewProps)
-        const isPreviewMode = previewData !== false
-
-        if (false) {}
-        let result = await renderToHTML(req, res, "/", Object.assign({}, getStaticProps ? { ...(parsedUrl.query.amp ? { amp: '1' } : {}) } : parsedUrl.query, nowParams ? nowParams : params, _params, isFallback ? { __nextFallback: 'true' } : {}), renderOpts)
-
-        if (!renderMode) {
-          if (_nextData || getStaticProps || getServerSideProps) {
-            sendPayload(req, res, _nextData ? JSON.stringify(renderOpts.pageData) : result, _nextData ? 'json' : 'html', true, {
-              private: isPreviewMode,
-              stateful: !!getServerSideProps,
-              revalidate: renderOpts.revalidate,
-            })
-            return null
-          }
-        } else if (isPreviewMode) {
-          res.setHeader(
-            'Cache-Control',
-            'private, no-cache, no-store, max-age=0, must-revalidate'
-          )
-        }
-
-        if (renderMode) return { html: result, renderOpts }
-        return result
-      } catch (err) {
-        if (!parsedUrl) {
-          parsedUrl = parseUrl(req.url, true)
-        }
-
-        if (err.code === 'ENOENT') {
-          res.statusCode = 404
-        } else if (err.code === 'DECODE_FAILED') {
-          // TODO: better error?
-          res.statusCode = 400
-        } else {
-          console.error('Unhandled error during request:', err)
-
-          // Backwards compat (call getInitialProps in custom error):
-          try {
-            await renderToHTML(req, res, "/_error", parsedUrl.query, Object.assign({}, options, {
-              getStaticProps: undefined,
-              getStaticPaths: undefined,
-              getServerSideProps: undefined,
-              Component: Error,
-              err: err,
-              // Short-circuit rendering:
-              isDataReq: true
-            }))
-          } catch (underErrorErr) {
-            console.error('Failed call /_error subroutine, continuing to crash function:', underErrorErr)
-          }
-
-          // Throw the error to crash the serverless function
-          if (isResSent(res)) {
-            console.error('!!! WARNING !!!')
-            console.error(
-              'Your function crashed, but closed the response before allowing the function to exit.\n' +
-              'This may cause unexpected behavior for the next request.'
-            )
-            console.error('!!! WARNING !!!')
-          }
-          throw err
-        }
-
-        const result = await renderToHTML(req, res, "/_error", parsedUrl.query, Object.assign({}, options, {
-          getStaticProps: undefined,
-          getStaticPaths: undefined,
-          getServerSideProps: undefined,
-          Component: Error,
-          err: res.statusCode === 404 ? undefined : err
-        }))
-        return result
-      }
-    }
-    async function render (req, res) {
-      try {
-        await Object(next_plugin_loader_middleware_on_init_server___WEBPACK_IMPORTED_MODULE_0__["default"])()
-        const html = await renderReqToHTML(req, res)
-        if (html) {
-          sendPayload(req, res, html, 'html', {generateEtags: true, poweredByHeader: true})
-        }
-      } catch(err) {
-        console.error(err)
-        await Object(next_plugin_loader_middleware_on_error_server___WEBPACK_IMPORTED_MODULE_1__["default"])(err)
-        // Throw the error to crash the serverless function
-        throw err
-      }
-    }
-  
 
 /***/ }),
 
@@ -13495,11 +13852,7 @@ exports.eqStringImpl = refEq;
 
 var $foreign = __webpack_require__("WslK");
 
-var Effect_Uncurried = __webpack_require__("BnGj");
-
 var React_Basic = __webpack_require__("ChJ6");
-
-var unsafeDocument = Effect_Uncurried.runEffectFn1($foreign["_unsafeDocument"]);
 
 var nextScript = function (dictUnion) {
   return function (attrs) {
@@ -13530,12 +13883,11 @@ module.exports = {
   head: head,
   main: main,
   nextScript: nextScript,
-  unsafeDocument: unsafeDocument,
   "_html": $foreign["_html"],
   "_head": $foreign["_head"],
   "_main": $foreign["_main"],
   "_nextScript": $foreign["_nextScript"],
-  "_unsafeDocument": $foreign["_unsafeDocument"]
+  unsafeDocument: $foreign.unsafeDocument
 };
 
 /***/ }),
@@ -13968,15 +14320,11 @@ exports.__esModule=true;exports.normalizePathSep=normalizePathSep;exports.denorm
 
 var Components_App = __webpack_require__("QpJo");
 
-var Components_Navigation = __webpack_require__("5nTH");
-
 var Config = __webpack_require__("WU0b");
 
 var Control_Applicative = __webpack_require__("Dpao");
 
 var Control_Bind = __webpack_require__("KLFj");
-
-var Control_Monad_Reader_Trans = __webpack_require__("yzgN");
 
 var Control_Promise = __webpack_require__("2qsY");
 
@@ -13987,8 +14335,6 @@ var Data_Functor = __webpack_require__("0cS1");
 var Data_Maybe = __webpack_require__("9iQ7");
 
 var Data_Monoid = __webpack_require__("ru3E");
-
-var Data_Unit = __webpack_require__("9rbA");
 
 var Effect = __webpack_require__("vwlR");
 
@@ -14017,46 +14363,40 @@ var React_Basic_Hooks_Internal = __webpack_require__("7p2L");
 var Type_Equality = __webpack_require__("U7a5");
 
 var mkHome = function () {
-  var render = function (slots) {
-    return function (props) {
-      return React_Basic.fragment([slots.navigation(Data_Unit.unit), React_Basic_DOM_Generated.div()({
-        className: "max-w-5xl flex mx-auto my-12",
-        children: [React_Basic_DOM_Generated.div()({
-          className: "mr-1 text-gray-100 w-3/5 shadow-2xl bg-gray-800 p-12 text-left",
-          children: [React_Basic_DOM_Generated.h1()({
-            className: "text-3xl font-bold",
-            children: [React_Basic_DOM.text(props.header)]
-          }), React_Basic_DOM_Generated.div()({
-            className: "w-4/5 pt-3 border-b-2 border-teal-500"
-          }), React_Basic_DOM_Generated.p()({
-            className: "pt-4 text-sm",
-            children: [React_Basic_DOM.text("Welcome to my Next.js with Purescript Example!")]
-          })]
+  var render = function (props) {
+    return React_Basic.fragment([React_Basic_DOM_Generated.div()({
+      className: "max-w-5xl flex mx-auto my-12",
+      children: [React_Basic_DOM_Generated.div()({
+        className: "mr-1 text-gray-100 w-3/5 shadow-2xl bg-gray-800 p-12 text-left",
+        children: [React_Basic_DOM_Generated.h1()({
+          className: "text-3xl font-bold",
+          children: [React_Basic_DOM.text(props.header)]
         }), React_Basic_DOM_Generated.div()({
-          className: "w-2/5",
-          children: [React_Basic_DOM_Generated.img()({
-            className: "shadow-2xl",
-            src: "https://source.unsplash.com/IuLgi9PWETU"
-          })]
+          className: "w-4/5 pt-3 border-b-2 border-teal-500"
+        }), React_Basic_DOM_Generated.p()({
+          className: "pt-4 text-sm",
+          children: [React_Basic_DOM.text("Welcome to my Next.js with Purescript Example!")]
         })]
-      })]);
-    };
+      }), React_Basic_DOM_Generated.div()({
+        className: "w-2/5",
+        children: [React_Basic_DOM_Generated.img()({
+          className: "shadow-2xl",
+          src: "https://source.unsplash.com/IuLgi9PWETU"
+        })]
+      })]
+    })]);
   };
 
-  return Control_Bind.bind(Control_Monad_Reader_Trans.bindReaderT(Effect.bindEffect))(Effect_Class.liftEffect(Control_Monad_Reader_Trans.monadEffectReader(Effect_Class.monadEffectEffect))(Components_Navigation.mkNavigation))(function (navigation) {
-    return Components_App.component("Home")(function (env) {
-      return function (props) {
-        return React_Basic_Hooks_Internal.bind(React_Basic_Hooks_Internal.ixBindRender)(React_Basic_Hooks.useContext(env.settings))(function (settings) {
-          return React_Basic_Hooks_Internal.discard(React_Basic_Hooks_Internal.ixBindRender)(React_Basic_Hooks.useEffect(Data_Maybe.eqMaybe(Data_Eq.eqString))(settings)(Control_Bind.discard(Control_Bind.discardUnit)(Effect.bindEffect)(Effect_Console.log(Data_Maybe.fromMaybe("No settings")(settings)))(function ($dollar__unused) {
-            return Data_Monoid.mempty(Effect.monoidEffect(Effect.monoidEffect(Data_Monoid.monoidUnit)));
-          })))(function ($dollar__unused) {
-            return Control_Applicative.pure(React_Basic_Hooks_Internal.applicativeRender(Type_Equality.refl))(render({
-              navigation: navigation
-            })(props));
-          });
+  return Components_App.component("Home")(function (env) {
+    return function (props) {
+      return React_Basic_Hooks_Internal.bind(React_Basic_Hooks_Internal.ixBindRender)(React_Basic_Hooks.useContext(env.settings))(function (settings) {
+        return React_Basic_Hooks_Internal.discard(React_Basic_Hooks_Internal.ixBindRender)(React_Basic_Hooks.useEffect(Data_Maybe.eqMaybe(Data_Eq.eqString))(settings)(Control_Bind.discard(Control_Bind.discardUnit)(Effect.bindEffect)(Effect_Console.log(Data_Maybe.fromMaybe("No settings")(settings)))(function ($dollar__unused) {
+          return Data_Monoid.mempty(Effect.monoidEffect(Effect.monoidEffect(Data_Monoid.monoidUnit)));
+        })))(function ($dollar__unused) {
+          return Control_Applicative.pure(React_Basic_Hooks_Internal.applicativeRender(Type_Equality.refl))(render(props));
         });
-      };
-    });
+      });
+    };
   });
 }();
 
@@ -14071,13 +14411,13 @@ var fetchData = function (v) {
 };
 
 var getServerSideProps = Effect_Uncurried.mkEffectFn1(function () {
-  var $137 = Data_Functor.map(Effect_Aff.functorAff)(function (v) {
+  var $154 = Data_Functor.map(Effect_Aff.functorAff)(function (v) {
     return {
       props: v
     };
   });
-  return function ($138) {
-    return Control_Promise.fromAff($137(fetchData($138)));
+  return function ($155) {
+    return Control_Promise.fromAff($154(fetchData($155)));
   };
 }());
 module.exports = {
@@ -14212,24 +14552,24 @@ var runReaderT = function (v) {
 };
 
 var monadTransReaderT = new Control_Monad_Trans_Class.MonadTrans(function (dictMonad) {
-  return function ($32) {
-    return ReaderT(Data_Function["const"]($32));
+  return function ($36) {
+    return ReaderT(Data_Function["const"]($36));
   };
 });
 
 var mapReaderT = function (f) {
   return function (v) {
-    return function ($33) {
-      return f(v($33));
+    return function ($37) {
+      return f(v($37));
     };
   };
 };
 
 var functorReaderT = function (dictFunctor) {
   return new Data_Functor.Functor(function () {
-    var $34 = Data_Functor.map(dictFunctor);
-    return function ($35) {
-      return mapReaderT($34($35));
+    var $38 = Data_Functor.map(dictFunctor);
+    return function ($39) {
+      return mapReaderT($38($39));
     };
   }());
 };
@@ -14265,9 +14605,9 @@ var applicativeReaderT = function (dictApplicative) {
   return new Control_Applicative.Applicative(function ($dollar__unused) {
     return applyReaderT(dictApplicative.Apply0());
   }, function () {
-    var $36 = Control_Applicative.pure(dictApplicative);
-    return function ($37) {
-      return ReaderT(Data_Function["const"]($36($37)));
+    var $40 = Control_Applicative.pure(dictApplicative);
+    return function ($41) {
+      return ReaderT(Data_Function["const"]($40($41)));
     };
   }());
 };
@@ -14290,10 +14630,10 @@ var monadEffectReader = function (dictMonadEffect) {
   return new Effect_Class.MonadEffect(function ($dollar__unused) {
     return monadReaderT(dictMonadEffect.Monad0());
   }, function () {
-    var $38 = Control_Monad_Trans_Class.lift(monadTransReaderT)(dictMonadEffect.Monad0());
-    var $39 = Effect_Class.liftEffect(dictMonadEffect);
-    return function ($40) {
-      return $38($39($40));
+    var $42 = Control_Monad_Trans_Class.lift(monadTransReaderT)(dictMonadEffect.Monad0());
+    var $43 = Effect_Class.liftEffect(dictMonadEffect);
+    return function ($44) {
+      return $42($43($44));
     };
   }());
 };

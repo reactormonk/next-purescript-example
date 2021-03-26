@@ -1,6 +1,6 @@
 
 [build]
-  command   = "yarn build:next"
+  command   = "yarn build"
   publish   = "out"
 
 [dev]

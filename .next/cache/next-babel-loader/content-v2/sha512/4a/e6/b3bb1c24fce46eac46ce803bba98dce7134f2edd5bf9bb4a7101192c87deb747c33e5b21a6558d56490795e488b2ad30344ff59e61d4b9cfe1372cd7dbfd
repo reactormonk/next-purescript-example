@@ -1,1 +1,0 @@
-{"ast":null,"code":"/* eslint-disable no-eq-null, eqeqeq */\n\"use strict\";\n\nexports[\"null\"] = null;\n\nexports.notNull = function (x) {\n  return x;\n};","map":null,"metadata":{},"sourceType":"script"}

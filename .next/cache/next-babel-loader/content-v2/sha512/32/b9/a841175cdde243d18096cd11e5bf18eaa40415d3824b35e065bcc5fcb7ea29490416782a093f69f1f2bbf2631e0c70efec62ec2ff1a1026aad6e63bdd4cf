@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { mkProfile } from \"../output/Pages.Profile/index.js\";\nexport default mkProfile;","map":null,"metadata":{},"sourceType":"module"}

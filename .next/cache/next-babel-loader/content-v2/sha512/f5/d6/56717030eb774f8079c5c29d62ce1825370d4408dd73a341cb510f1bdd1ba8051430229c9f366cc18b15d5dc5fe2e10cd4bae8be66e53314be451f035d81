@@ -1,1 +1,0 @@
-{"ast":null,"code":"\"use strict\";\n\nexports.boolConj = function (b1) {\n  return function (b2) {\n    return b1 && b2;\n  };\n};\n\nexports.boolDisj = function (b1) {\n  return function (b2) {\n    return b1 || b2;\n  };\n};\n\nexports.boolNot = function (b) {\n  return !b;\n};","map":null,"metadata":{},"sourceType":"script"}

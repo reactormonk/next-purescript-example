@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { mkError } from \"../output/Pages.Error/index.js\";\nexport default mkError(404);","map":null,"metadata":{},"sourceType":"module"}

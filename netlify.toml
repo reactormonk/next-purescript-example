@@ -1,6 +1,6 @@
 
 [build]
-  command   = "#"
+  command   = "yarn build:next"
   publish   = "out"
 
 [dev]

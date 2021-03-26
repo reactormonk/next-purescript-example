@@ -1,1 +1,0 @@
-{"ast":null,"code":"/* eslint-disable no-eq-null, eqeqeq */\n\"use strict\";\n\nfunction id(x) {\n  return x;\n}\n\nexports.fromObject = id;\n\nexports.stringify = function (j) {\n  return JSON.stringify(j);\n};\n\nfunction isArray(a) {\n  return Object.prototype.toString.call(a) === \"[object Array]\";\n}","map":null,"metadata":{},"sourceType":"script"}

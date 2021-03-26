@@ -1,1 +1,0 @@
-{"ast":null,"code":"\"use strict\";\n\nexports.pureE = function (a) {\n  return function () {\n    return a;\n  };\n};\n\nexports.bindE = function (a) {\n  return function (f) {\n    return function () {\n      return f(a())();\n    };\n  };\n};","map":null,"metadata":{},"sourceType":"script"}

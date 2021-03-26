@@ -1,4 +1,0 @@
-# Next-on-Netlify Redirects
-/  /.netlify/functions/next_index  200
-/_next/data/5ghY8qS-cHVsUwtFiAnE7/index.json  /.netlify/functions/next_index  200
-/_next/image*  url=:url w=:width q=:quality  /.netlify/functions/next_image?url=:url&w=:width&q=:quality  200

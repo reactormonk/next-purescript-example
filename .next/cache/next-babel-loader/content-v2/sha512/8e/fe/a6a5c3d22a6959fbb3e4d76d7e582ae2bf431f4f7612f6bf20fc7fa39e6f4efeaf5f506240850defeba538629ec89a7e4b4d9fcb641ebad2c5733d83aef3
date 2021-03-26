@@ -1,0 +1,1 @@
+{"ast":null,"code":"\"use strict\";\n\nexports.log = function (s) {\n  return function () {\n    console.log(s);\n  };\n};","map":null,"metadata":{},"sourceType":"script"}

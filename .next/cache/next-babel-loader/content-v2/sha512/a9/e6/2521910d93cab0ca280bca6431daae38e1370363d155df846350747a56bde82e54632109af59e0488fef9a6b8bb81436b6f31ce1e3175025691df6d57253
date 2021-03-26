@@ -1,0 +1,1 @@
+{"ast":null,"code":"\"use strict\";\n\nexports._jsonParser = function (fail, succ, s) {\n  try {\n    return succ(JSON.parse(s));\n  } catch (e) {\n    return fail(e.message);\n  }\n};","map":null,"metadata":{},"sourceType":"script"}

@@ -1,0 +1,1 @@
+{"ast":null,"code":"\"use strict\";\n\nexports.unsafePerformEffect = function (f) {\n  return f();\n};","map":null,"metadata":{},"sourceType":"script"}

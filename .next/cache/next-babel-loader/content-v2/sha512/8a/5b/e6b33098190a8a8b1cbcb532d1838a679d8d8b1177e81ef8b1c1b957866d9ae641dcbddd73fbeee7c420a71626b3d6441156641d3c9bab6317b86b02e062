@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { mkHome } from \"../output/Pages.Home/index.js\";\nexport var __N_SSP = true;\nexport default mkHome;","map":null,"metadata":{},"sourceType":"module"}

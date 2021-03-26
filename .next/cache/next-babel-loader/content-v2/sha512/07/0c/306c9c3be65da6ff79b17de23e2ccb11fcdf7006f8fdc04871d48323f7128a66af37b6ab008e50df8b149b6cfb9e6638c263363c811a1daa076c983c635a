@@ -1,0 +1,1 @@
+{"ast":null,"code":"\"use strict\";\n\nexports.concatString = function (s1) {\n  return function (s2) {\n    return s1 + s2;\n  };\n};","map":null,"metadata":{},"sourceType":"script"}

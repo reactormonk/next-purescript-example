@@ -1,0 +1,1 @@
+{"ast":null,"code":"exports._head = require(\"next/head\").default;","map":null,"metadata":{},"sourceType":"script"}

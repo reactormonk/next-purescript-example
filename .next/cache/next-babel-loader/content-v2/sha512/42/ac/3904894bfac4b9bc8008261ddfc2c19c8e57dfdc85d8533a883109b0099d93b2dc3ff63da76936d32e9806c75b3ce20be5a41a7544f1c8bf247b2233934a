@@ -1,0 +1,1 @@
+{"ast":null,"code":"\"use strict\";\n\nexports.empty = {};\n\nfunction toArrayWithKey(f) {\n  return function (m) {\n    var r = [];\n\n    for (var k in m) {\n      if (hasOwnProperty.call(m, k)) {\n        r.push(f(k)(m[k]));\n      }\n    }\n\n    return r;\n  };\n}","map":null,"metadata":{},"sourceType":"script"}

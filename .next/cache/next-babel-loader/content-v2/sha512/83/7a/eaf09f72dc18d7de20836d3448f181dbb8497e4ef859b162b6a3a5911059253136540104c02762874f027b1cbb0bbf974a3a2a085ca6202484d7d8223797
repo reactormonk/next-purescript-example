@@ -1,0 +1,1 @@
+{"ast":null,"code":"\"use strict\"; // module Partial\n\nexports._crashWith = function (msg) {\n  throw new Error(msg);\n};","map":null,"metadata":{},"sourceType":"script"}

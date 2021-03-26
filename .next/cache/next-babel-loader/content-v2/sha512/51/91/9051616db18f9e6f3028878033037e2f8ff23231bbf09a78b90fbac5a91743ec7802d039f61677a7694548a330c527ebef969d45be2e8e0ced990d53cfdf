@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { mkDocument } from \"../output/Pages.Document/index.js\";\nexport default mkDocument();","map":null,"metadata":{},"sourceType":"module"}

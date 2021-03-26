@@ -1,0 +1,1 @@
+{"ast":null,"code":"\"use strict\";\n\nexports.arrayMap = function (f) {\n  return function (arr) {\n    var l = arr.length;\n    var result = new Array(l);\n\n    for (var i = 0; i < l; i++) {\n      result[i] = f(arr[i]);\n    }\n\n    return result;\n  };\n};","map":null,"metadata":{},"sourceType":"script"}

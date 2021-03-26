@@ -1,3 +1,0 @@
-# Next-on-Netlify Headers
-/_next/static/chunks/*:
-  cache-control: public,max-age=31536000,immutable

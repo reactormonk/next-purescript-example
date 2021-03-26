@@ -1,0 +1,1 @@
+{"ast":null,"code":"import \"../styles/styles.css\";\nimport { mkApp } from \"../output/Pages.App/index.js\";\nexport default mkApp;","map":null,"metadata":{},"sourceType":"module"}

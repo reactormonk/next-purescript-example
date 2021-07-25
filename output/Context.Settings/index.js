@@ -9,7 +9,7 @@ var React_Basic_Hooks_Internal = require("../React.Basic.Hooks.Internal/index.js
 var Type_Equality = require("../Type.Equality/index.js");
 var mkSettingsProvider = function __do() {
     var context = React_Basic.createContext(Data_Maybe.Nothing.value)();
-    var component = React_Basic_Hooks.component("SettingsProvider ")(function (content) {
+    var component = React_Basic_Hooks.component("SettingsProvider")(function (content) {
         return Control_Applicative.pure(React_Basic_Hooks_Internal.applicativeRender(Type_Equality.refl))(React_Basic.provider(context)(new Data_Maybe.Just("Hello from Settings"))(Control_Applicative.pure(Control_Applicative.applicativeArray)(content)));
     })();
     return new Data_Tuple.Tuple(context, component);

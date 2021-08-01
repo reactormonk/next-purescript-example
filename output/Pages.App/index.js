@@ -6,13 +6,15 @@ var Context_Settings = require("../Context.Settings/index.js");
 var Control_Monad_Reader_Trans = require("../Control.Monad.Reader.Trans/index.js");
 var Data_Unit = require("../Data.Unit/index.js");
 var React_Basic = require("../React.Basic/index.js");
-var mkApp = function (props) {
+var mkApp = function __do() {
     var v = Context_Settings.mkSettingsProvider();
     var loading = Components_Loading.mkLoading();
-    var component = Control_Monad_Reader_Trans.runReaderT(props.Component)({
-        settings: v.value0
-    })();
-    return v.value1(React_Basic.fragment([ loading(Data_Unit.unit), Components_Navigation.navigation, component(props.pageProps) ]));
+    return function (props) {
+        var component = Control_Monad_Reader_Trans.runReaderT(props.Component)({
+            settings: v.value0
+        })();
+        return v.value1(React_Basic.fragment([ loading(Data_Unit.unit), Components_Navigation.navigation, component(props.pageProps) ]));
+    };
 };
 module.exports = {
     mkApp: mkApp

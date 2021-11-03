@@ -2,9 +2,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true"
 });
 
-const withPreact = require('next-plugin-preact');
-
-module.exports = withBundleAnalyzer(withPreact({
+module.exports = withBundleAnalyzer({
   target: "serverless",
   webpack(config, { isServer }) {
     // https://github.com/purescript-contrib/purescript-affjax/issues/63
@@ -23,4 +21,4 @@ module.exports = withBundleAnalyzer(withPreact({
 
     return config
   }
-}))
+})

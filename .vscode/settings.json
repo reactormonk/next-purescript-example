@@ -3,10 +3,11 @@
   "purescript.addPscPackageSources": true,
   "purescript.addSpagoSources": true,
   "purescript.editorMode": true,
-  "purescript.buildCommand": "spago build --purs-args \"--json-errors\"",
+  "purescript.buildCommand": "spago build --purs-args \"--json-errors --output .ide-output\"",
   "[purescript]": {
     "editor.formatOnSave": true
   },
   "liveServer.settings.root": "/dist",
-  "liveServer.settings.file": "index.html"
+  "liveServer.settings.file": "index.html",
+  "purescript.outputDirectory": ".ide-output"
 }
